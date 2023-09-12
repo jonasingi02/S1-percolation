@@ -9,13 +9,13 @@ public class Percolation {
     private int opensites;
     private final WeightedQuickUnionUF uf;
 
-    public static boolean[][] Percolation(int N) {
+    public static void Percolation(int N) {
         if (n <= 0) {
             throw new IllegalArgumentExeption();
         }
         opened = new boolean[N][N];
         bottom = N * N;
-        qf = new WeightedQuickUnionUF(N * N + 2);
+        uf = new WeightedQuickUnionUF(N * N + 2);
         openedsites = 0;
         size = N;
     }
@@ -28,7 +28,7 @@ public class Percolation {
         openedsites++;
 
         if (row == 1) {
-            uf.union(1, findIndex(row, col));
+            uf.union(0, findIndex(row, col));
         } 
         else {
             if (isOpen(row-1, col)) {
@@ -82,12 +82,35 @@ public class Percolation {
     }
 
     public boolean percolates() {
-
+        a = uf.connected(0,bottom);
+        return a;
     }
 
 
     public static void main(String args[]){
-    a[][] = Percolation(2);
-    print(a[1][1]);
+        Percolation(3);
+        private static bool a;
+
+        open(1,1);
+        a = percolates();
+        if (a == true) {
+            System.out.println("the system percolates");
+        } else {
+            System.out.println("the system does not percolate");
+        }
+        open(2,1);
+        a = percolates();
+        if (a == true) {
+            System.out.println("the system percolates");
+        } else {
+            System.out.println("the system does not percolate");
+        }
+        open(3,1);
+        a = percolates();
+        if (a == true) {
+            System.out.println("the system percolates");
+        } else {
+            System.out.println("the system does not percolate");
+        }
     }
 }
