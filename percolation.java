@@ -1,17 +1,18 @@
-import edu.princeton.algs4.WeightedQuickUnionUF;
+import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
-public class Percolation {
+public class percolation {
 
     private static final int top = 0;
     private final boolean[][] opened;
     private final int size;
     private final int bottom;
-    private int opensites;
+    private int openedsites;
     private final WeightedQuickUnionUF uf;
+    private boolean a;
 
-    public static void Percolation(int N) {
-        if (n <= 0) {
-            throw new IllegalArgumentExeption();
+    public percolation(int N) {
+        if (N <= 0) {
+            throw new IllegalArgumentException();
         }
         opened = new boolean[N][N];
         bottom = N * N;
@@ -21,8 +22,8 @@ public class Percolation {
     }
 
     public void open(int row, int col) {
-        if (row > N || row < 1 || col > N || col < 1) {
-            throw new ArrayIndexOutOfBoundsExeption();
+        if (row > size || row < 1 || col > size || col < 1) {
+            throw new ArrayIndexOutOfBoundsException();
         }
         opened[row-1][col-1] = true;
         openedsites++;
@@ -88,29 +89,30 @@ public class Percolation {
 
 
     public static void main(String args[]){
-        Percolation(3);
-        private static bool a;
+        percolation percolation = new percolation(3);
 
-        open(1,1);
-        a = percolates();
-        if (a == true) {
-            System.out.println("the system percolates");
+        percolation.open(1, 1);
+        percolation.percolates();
+        if (percolation.percolates()) {
+            System.out.println("The system percolates");
         } else {
-            System.out.println("the system does not percolate");
+            System.out.println("The system does not percolate");
         }
-        open(2,1);
-        a = percolates();
-        if (a == true) {
-            System.out.println("the system percolates");
+
+        percolation.open(2, 1);
+        percolation.percolates();
+        if (percolation.percolates()) {
+            System.out.println("The system percolates");
         } else {
-            System.out.println("the system does not percolate");
+            System.out.println("The system does not percolate");
         }
-        open(3,1);
-        a = percolates();
-        if (a == true) {
-            System.out.println("the system percolates");
+
+        percolation.open(3, 1);
+        percolation.percolates();
+        if (percolation.percolates()) {
+            System.out.println("The system percolates");
         } else {
-            System.out.println("the system does not percolate");
+            System.out.println("The system does not percolate");
         }
     }
 }
