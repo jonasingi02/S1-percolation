@@ -26,6 +26,7 @@ public class percolation {
             throw new ArrayIndexOutOfBoundsException();
         }
         opened[row][col] = true;
+        //StdOut.println("opened: " + openedsites);
         openedsites++;
 
         if (row == 0) {
@@ -63,7 +64,7 @@ public class percolation {
         return opened[row][col];
     }
     public boolean isFull(int row, int col) {
-        return !(opened[row][col] == false);
+        return !(opened[row][col]);
     }
     
     public int numberOfOpenSites() {
