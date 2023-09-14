@@ -1,13 +1,16 @@
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
+import edu.princeton.cs.algs4.QuickFindUF;
 
 public class percolation {
 
     private final boolean[][] opened;
+    static final boolean quickfind = true;
     private final int size;
     private final int bottom;
     private int openedsites;
     private final WeightedQuickUnionUF uf;
+    private final QuickFindUF qf;
     private boolean a;
 
     public percolation(int N) {
@@ -17,6 +20,7 @@ public class percolation {
         opened = new boolean[N][N];
         bottom = N * N;
         uf = new WeightedQuickUnionUF((N * N) + 2);
+        qf = new QuickFindUF((N * N) + 2);
         openedsites = 0;
         size = N;
     }
@@ -26,32 +30,55 @@ public class percolation {
             throw new ArrayIndexOutOfBoundsException();
         }
         opened[row][col] = true;
-        //StdOut.println("opened: " + openedsites);
         openedsites++;
 
         if (row == 0) {
-            uf.union(0, findIndex(row, col));
+            if (!quickfind) {
+                uf.union(0, findIndex(row, col));
+            } else {
+                qf.union(0, findIndex(row, col));
+            }
         } 
         else if (isOpen(row-1, col)) {
-            uf.union(findIndex(row-1, col), findIndex(row, col));
+            if (!quickfind) {
+                uf.union(findIndex(row-1, col), findIndex(row, col));
+            } else {
+                qf.union(0, findIndex(row, col));
+            }
         }
 
         if (row == size-1){
-            uf.union(findIndex(row, col), bottom);
+            if (!quickfind) {
+                uf.union(findIndex(row, col), bottom);
+            } else {
+                qf.union(findIndex(row, col), bottom);
+            }
         }
         else if (isOpen(row+1, col)) {
-            uf.union(findIndex(row+1, col), findIndex(row, col));
+            if (!quickfind) {
+                uf.union(findIndex(row+1, col), findIndex(row, col));
+            } else {
+                qf.union(findIndex(row+1, col), findIndex(row, col));
+            }
         }
 
         if (col != 0) {
             if (isOpen(row, col-1)) {
-                uf.union(findIndex(row, col-1), findIndex(row, col));
+                if (!quickfind) {
+                    uf.union(findIndex(row, col-1), findIndex(row, col));
+                } else {
+                    qf.union(findIndex(row, col-1), findIndex(row, col));
+                }
             }
         }
 
         if (col != size-1){
             if (isOpen(row, col+1)) {
-                uf.union(findIndex(row, col+1), findIndex(row, col));
+                if (!quickfind) {
+                    uf.union(findIndex(row, col+1), findIndex(row, col));
+                } else {
+                qf.union(findIndex(row, col+1), findIndex(row, col));
+                } 
             }
         }
     }
@@ -72,7 +99,11 @@ public class percolation {
     }
 
     public boolean percolates() {
-        a = uf.connected(0,bottom);
+        if (!quickfind) {
+            a = uf.connected(0,bottom);
+        } else {
+            a = qf.connected(0,bottom);
+        }
         return a;
     }
 

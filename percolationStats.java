@@ -23,8 +23,8 @@ public class percolationStats {
                 int row = StdRandom.uniform(1, N+1);
                 int col = StdRandom.uniform(1, N+1);
 
-                if (!percolation.isOpen(row, col)) {
-                    percolation.open(row, col);
+                if (!percolation.isOpen(row-1, col-1)) {
+                    percolation.open(row-1, col-1);
                     open_sites++;
                 }
             }
@@ -43,8 +43,14 @@ public class percolationStats {
 
 
     public static void main(String[] args) {
-        int N = 70;
-        int T = 500;
+        int N = 50;
+        int T = 50;
+        if (percolation.quickfind) {
+            StdOut.println("\nQuickfind: \n**********");
+        } else {
+            StdOut.println("\nWeightedQuickunion: \n*******************");
+        }
+            
         for (int i = 1; i < 6; i++) {
             StdOut.println(i + ": N = " + N + " T = " + T);
             Stopwatch stopwatch = new Stopwatch();
@@ -55,8 +61,8 @@ public class percolationStats {
             StdOut.println("Standard Deviation: " + stats.stddev());
             StdOut.println("Runtime: " + runtime + "s\n");
 
-            //T = T * 2;
-            N = N * 2;
+            T = T * 2;
+            //N = N * 2;
         }
     }
 }
