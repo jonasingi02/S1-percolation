@@ -20,8 +20,8 @@ public class percolationStats {
             percolation percolation = new percolation(N);
 
             while(!percolation.percolates()) {
-                int row = StdRandom.uniformInt(1, N+1);
-                int col = StdRandom.uniformInt(1, N+1);
+                int row = StdRandom.uniform(1, N+1);
+                int col = StdRandom.uniform(1, N+1);
 
                 if (!percolation.isOpen(row, col)) {
                     percolation.open(row, col);

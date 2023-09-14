@@ -22,37 +22,33 @@ public class percolation {
     }
 
     public void open(int row, int col) {
-        if (row > size || row < 1 || col > size || col < 1) {
+        if (row+1 > size || row < 0 || col+1 > size || col < 0) {
             throw new ArrayIndexOutOfBoundsException();
         }
-        opened[row-1][col-1] = true;
+        opened[row][col] = true;
         openedsites++;
 
-        if (row == 1) {
+        if (row == 0) {
             uf.union(0, findIndex(row, col));
         } 
-        else {
-            if (isOpen(row-1, col)) {
-                uf.union(findIndex(row-1, col), findIndex(row, col));
-            }
+        else if (isOpen(row-1, col)) {
+            uf.union(findIndex(row-1, col), findIndex(row, col));
         }
 
-        if (row == size){
+        if (row == size-1){
             uf.union(findIndex(row, col), bottom);
         }
-        else {
-            if (isOpen(row+1, col)) {
-                uf.union(findIndex(row+1, col), findIndex(row, col));
-            }
+        else if (isOpen(row+1, col)) {
+            uf.union(findIndex(row+1, col), findIndex(row, col));
         }
 
-        if (col != 1) {
+        if (col != 0) {
             if (isOpen(row, col-1)) {
                 uf.union(findIndex(row, col-1), findIndex(row, col));
             }
         }
 
-        if (col != size){
+        if (col != size-1){
             if (isOpen(row, col+1)) {
                 uf.union(findIndex(row, col+1), findIndex(row, col));
             }
@@ -60,22 +56,14 @@ public class percolation {
     }
 
     private int findIndex(int row, int col) {
-        return size * (row-1) + col;
+        return size * (row) + col+1;
     }
 
     public boolean isOpen(int row, int col) {
-        if (opened[row-1][col-1] == true){
-            return true;
-        } else {
-            return false;
-        }
+        return opened[row][col];
     }
     public boolean isFull(int row, int col) {
-        if (opened[row-1][col-1] == false){
-            return true;
-        } else {
-            return false;
-        }
+        return !(opened[row][col] == false);
     }
     
     public int numberOfOpenSites() {
