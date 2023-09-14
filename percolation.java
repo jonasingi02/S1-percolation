@@ -1,8 +1,8 @@
+import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class percolation {
 
-    private static final int top = 0;
     private final boolean[][] opened;
     private final int size;
     private final int bottom;
@@ -16,7 +16,7 @@ public class percolation {
         }
         opened = new boolean[N][N];
         bottom = N * N;
-        uf = new WeightedQuickUnionUF(N * N + 2);
+        uf = new WeightedQuickUnionUF((N * N) + 2);
         openedsites = 0;
         size = N;
     }
@@ -60,7 +60,7 @@ public class percolation {
     }
 
     private int findIndex(int row, int col) {
-        return size * row-1 + col;
+        return size * (row-1) + col;
     }
 
     public boolean isOpen(int row, int col) {
@@ -77,7 +77,7 @@ public class percolation {
             return false;
         }
     }
-
+    
     public int numberOfOpenSites() {
         return openedsites;
     }
@@ -94,25 +94,25 @@ public class percolation {
         percolation.open(1, 1);
         percolation.percolates();
         if (percolation.percolates()) {
-            System.out.println("The system percolates");
+            StdOut.println("The system percolates");
         } else {
-            System.out.println("The system does not percolate");
+            StdOut.println("The system does not percolate");
         }
 
         percolation.open(2, 1);
         percolation.percolates();
         if (percolation.percolates()) {
-            System.out.println("The system percolates");
+            StdOut.println("The system percolates");
         } else {
-            System.out.println("The system does not percolate");
+            StdOut.println("The system does not percolate");
         }
 
         percolation.open(3, 1);
         percolation.percolates();
         if (percolation.percolates()) {
-            System.out.println("The system percolates");
+            StdOut.println("The system percolates");
         } else {
-            System.out.println("The system does not percolate");
+            StdOut.println("The system does not percolate");
         }
     }
 }
